@@ -1,0 +1,4 @@
+# 2013-09-01
+* refactored search algorithm for performance
+* search now returns all matches for wildcards instead of only the first
+* added debug option
