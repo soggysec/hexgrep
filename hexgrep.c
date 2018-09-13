@@ -930,6 +930,9 @@ int search_file(
     fprintf(stderr, "failed to open %s for reading", file);
     return 1;
   }
+  else if (!st.st_size){
+    return 1;
+  }
   if (range_string != NULL)
   {
     if (parse_range(st.st_size, &range, range_string))
@@ -951,7 +954,7 @@ int search_file(
 
   if (data == MAP_FAILED)
   {
-    perror("failed to mmap file");
+    fprintf(stderr, "failed to mmap file: %s\n", file);
     close(fd);
     return 1;
   }
