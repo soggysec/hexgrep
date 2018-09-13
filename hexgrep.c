@@ -696,9 +696,7 @@ int parse_token(
   }
 }
 
-void calculate_min_lengths(
-    token_t *tokens)
-{
+void calculate_min_lengths(token_t *tokens) {
   int i;
   size_t total;
 
@@ -811,6 +809,10 @@ match_tokens(
   big_endian = OPTIONS.big_endian;
 
   start = local_offset + tokens[t].skip_start;
+  if (tokens[t].match_len > local_offset_limit){
+      return 0;
+  }
+
   limit = local_offset_limit - tokens[t].match_len;
 
   switch (tokens[t].skip_eq)
@@ -1153,6 +1155,7 @@ parse_args(
       OPTIONS.padding = strtoul(optarg, NULL, 0);
       break;
     case 'r':
+      printf("Setting range_string to: %s\n", optarg);
       OPTIONS.range_string = optarg;
       break;
     case 'h':
